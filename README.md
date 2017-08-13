@@ -2,7 +2,7 @@
 
 [![GoDoc](https://godoc.org/github.com/wolfeidau/robocape?status.svg)](https://godoc.org/github.com/wolfeidau/robocape)
 
-This is a wrapper for the [robotcape C library](https://github.com/StrawsonDesign/Robotics_Cape_Installer) which is designed to work with the [beaglebone blue](https://beagleboard.org/blue) board. It is designed to make it easy to take advantage of this great library without rewriting it in pure Go.
+This is a Go wrapper for the [robotcape C library](https://github.com/StrawsonDesign/Robotics_Cape_Installer) which is designed to work with the [beaglebone blue](https://beagleboard.org/blue) board. It is designed to make it easy to take advantage of this great library without rewriting it in pure Go.
 
 # usage
 

@@ -25,10 +25,11 @@ func onModeReleased() {
 
 func main() {
 	err := robocape.Initialise()
-
 	if err != nil {
 		log.Fatalf("Unable to initialise cape: %v", err)
 	}
+
+	defer robocape.Cleanup()
 
 	robocape.SetPausePressed(onPausePressed)
 	robocape.SetPauseReleased(onPauseReleased)
@@ -36,4 +37,5 @@ func main() {
 	robocape.SetModeReleased(onModeReleased)
 
 	time.Sleep(10 * time.Second)
+
 }
