@@ -6,6 +6,8 @@ package robocape
 */
 import "C"
 
+// IMU holds imu data
+// TODO: needs LOCKING
 type IMU struct {
 	data C.rc_imu_data_t
 }
