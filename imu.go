@@ -5,10 +5,12 @@ package robocape
 #include "roboticscape.h"
 */
 import "C"
+import "sync"
 
 // IMU holds imu data
 // TODO: needs LOCKING
 type IMU struct {
+	mu   sync.Mutex
 	data C.rc_imu_data_t
 }
 
@@ -35,7 +37,6 @@ type MagData struct {
 
 // InitialiseIMU setup the IMU
 func InitialiseIMU() (*IMU, error) {
-
 	i := &IMU{}
 
 	conf := C.rc_default_imu_config()
@@ -47,7 +48,8 @@ func InitialiseIMU() (*IMU, error) {
 
 // ReadAccel read the accelerometer data
 func (i *IMU) ReadAccel() (*AccelData, error) {
-
+	i.mu.Lock()
+	defer i.mu.Unlock()
 	ad := &AccelData{}
 
 	err := checkRes(C.rc_read_accel_data(&i.data))
@@ -66,6 +68,8 @@ func (i *IMU) ReadAccel() (*AccelData, error) {
 
 // ReadGyro read the gryro data
 func (i *IMU) ReadGyro() (*GyroData, error) {
+	i.mu.Lock()
+	defer i.mu.Unlock()
 
 	ad := &GyroData{}
 
@@ -85,6 +89,8 @@ func (i *IMU) ReadGyro() (*GyroData, error) {
 
 // ReadMag read the magnetometer data
 func (i *IMU) ReadMag() (*MagData, error) {
+	i.mu.Lock()
+	defer i.mu.Unlock()
 
 	ad := &MagData{}
 
@@ -104,6 +110,8 @@ func (i *IMU) ReadMag() (*MagData, error) {
 
 // ReadTemp read the tempreture data
 func (i *IMU) ReadTemp() (float32, error) {
+	i.mu.Lock()
+	defer i.mu.Unlock()
 
 	err := checkRes(C.rc_read_imu_temp(&i.data))
 
