@@ -5,10 +5,13 @@ package robocape
 #include "roboticscape.h"
 */
 import "C"
-import "sync"
+import (
+	"sync"
+
+	"github.com/davecgh/go-spew/spew"
+)
 
 // IMU holds imu data
-// TODO: needs LOCKING
 type IMU struct {
 	mu   sync.Mutex
 	data C.rc_imu_data_t
@@ -103,7 +106,7 @@ func (i *IMU) ReadMag() (*MagData, error) {
 	ad.Y = float32(i.data.mag[1])
 	ad.Z = float32(i.data.mag[2])
 
-	//	spew.Dump(i.data)
+	//spew.Dump(i.data)
 
 	return ad, nil
 }
@@ -115,7 +118,12 @@ func (i *IMU) ReadTemp() (float32, error) {
 
 	err := checkRes(C.rc_read_imu_temp(&i.data))
 
-	//spew.Dump(i.data)
+	spew.Dump(i.data)
 
 	return float32(i.data.temp), err
+}
+
+// PowerOffIMU shut down the IMU
+func PowerOffIMU() error {
+	return checkRes(C.rc_power_off_imu())
 }

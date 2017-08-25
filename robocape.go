@@ -8,6 +8,7 @@ typedef void (*closure)(); // workaround see https://github.com/golang/go/issues
 import "C"
 import (
 	"fmt"
+	"time"
 )
 
 // Initialise initialise the robotcape
@@ -18,6 +19,18 @@ func Initialise() error {
 // Cleanup release resources used by the robotcape
 func Cleanup() error {
 	return checkRes(C.rc_cleanup())
+}
+
+// WaitForExit wait for exit
+func WaitForExit() {
+
+	for {
+		if C.rc_get_state() == C.EXITING {
+			break
+		}
+		time.Sleep(100 * time.Millisecond)
+	}
+
 }
 
 // checkRes check for non zero return codes

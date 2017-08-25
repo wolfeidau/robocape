@@ -27,3 +27,9 @@ callModeReleased(void)
 {
 	goModeReleasedCallback();
 }
+
+void
+callDmp(void)
+{
+	goDmp();
+}
