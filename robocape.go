@@ -33,6 +33,16 @@ func WaitForExit() {
 
 }
 
+// IsExiting check if the process should exit
+func IsExiting() bool {
+	return C.rc_get_state() == C.EXITING
+}
+
+// Exit stop the process
+func Exit() {
+	C.rc_set_state(C.EXITING)
+}
+
 // checkRes check for non zero return codes
 func checkRes(res C.int) error {
 	if res != 0 {
