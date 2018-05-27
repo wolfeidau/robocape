@@ -10,7 +10,8 @@ import (
 )
 
 var (
-	ch = kingpin.Arg("channel", "Servo channel to update.").Required().Int()
+	ch    = kingpin.Arg("channel", "Servo channel to update.").Required().Int()
+	limit = kingpin.Arg("limit", "Servo speed.").Required().Float()
 )
 
 func main() {

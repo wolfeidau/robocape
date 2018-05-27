@@ -43,7 +43,7 @@ func main() {
 
 	temp, err := imu.ReadTemp()
 	if err != nil {
-		log.Fatalf("Unable to read tempreture: %v", err)
+		log.Fatalf("Unable to read temperature: %v", err)
 	}
 
 	fmt.Println("temp", temp)
